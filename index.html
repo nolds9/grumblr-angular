@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="grumblr">
+<head>
+ <meta charset="UTF-8">
+ <title>Grumblr | Angular</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+ <script src="js/app.js"></script>
+ <script src="js/controllers/grumbles.js"></script>
+</head>
+<body>
+  <h1>Grumblr</h1>
+  <div ng-controller="grumblesController as grumbles">
+    <a href="#" ng-click="grumbles.toggleForm()">Toggle Form</a>
+    <br>
+    <form ng-show="grumbles.formIsVisible" ng-submit="grumbles.createGrumble(grumbles.data)">
+      <label>Author</label>:
+      <input type="text" ng-model="grumbles.data.authorName">
+      <br>
+      <label>Content</label>:
+      <input type="text" ng-Model="grumbles.data.content">
+      <br>
+      <label>Photo_Url</label>:
+      <input type="text" ng-model="grumbles.data.photo_url">
+      <br>
+      <input type="submit">
+    </form>
+
+    <ul ng-repeat="grumble in grumbles.grumbles">
+      <img ng-src="{{grumble.photo_url}}" alt="Nick Cage">
+      <li ng-show="!editGrumble">
+        {{grumble.authorName}} says {{grumble.content}}
+        <button ng-click=" grumbles.currentGrumble($index); editGrumble = !editGrumble">Edit Grumble</button>
+      </li>
+
+      <form ng-show="editGrumble" ng-submit="grumbles.updateGrumble($index, grumbles.updated)">
+        <label>Author</label>:
+        <input type="text" ng-model="grumbles.updated.authorName">
+        <br>
+        <label>Content</label>:
+        <input type="text" ng-model="grumbles.updated.content">
+        <br>
+        <label>Photo_Url</label>:
+        <input type="text" ng-model="grumbles.updated.photo_url">
+        <br>
+        <button ng-click="grumbles.destroyGrumble($index)">Delete</button>
+        <input type="submit">
+      </form>
+    </ul>
+  </div>
+</body>
+</html>
