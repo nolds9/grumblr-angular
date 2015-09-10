@@ -60,7 +60,6 @@ app.controller("grumblesController", function(){
   };
 
   this.destroyGrumble = function(index){
-    // console.log("delete");
     event.preventDefault();
     this.grumbles.splice(index,1);
   };

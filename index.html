@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Initialize Angular Module -->
 <html lang="en" ng-app="grumblr">
 <head>
  <meta charset="UTF-8">
@@ -10,9 +11,13 @@
 </head>
 <body>
   <h1>Grumblr</h1>
+
+  <!-- View Model instance declaration -->
   <div ng-controller="grumblesController as grumbles">
     <a href="#" ng-click="grumbles.toggleForm()">Toggle Form</a>
     <br>
+
+    <!-- Grumbles#New  -->
     <form ng-show="grumbles.formIsVisible" ng-submit="grumbles.createGrumble(grumbles.data)">
       <label>Author</label>:
       <input type="text" ng-model="grumbles.data.authorName">
@@ -26,6 +31,7 @@
       <input type="submit">
     </form>
 
+    <!-- Grumbles#Index -->
     <ul ng-repeat="grumble in grumbles.grumbles">
       <img ng-src="{{grumble.photo_url}}" alt="Nick Cage">
       <li ng-show="!editGrumble">
@@ -33,6 +39,7 @@
         <button ng-click=" grumbles.currentGrumble($index); editGrumble = !editGrumble">Edit Grumble</button>
       </li>
 
+      <!-- Grumbles#Edit -->
       <form ng-show="editGrumble" ng-submit="grumbles.updateGrumble($index, grumbles.updated)">
         <label>Author</label>:
         <input type="text" ng-model="grumbles.updated.authorName">
@@ -46,7 +53,15 @@
         <button ng-click="grumbles.destroyGrumble($index)">Delete</button>
         <input type="submit">
       </form>
-    </ul>
-  </div>
+
+      <!-- Comments#Index  -->
+      <div class="commentBox" ng-repeat="comment in grumble.comments">
+        <ul>
+          <li>{{comment.commentAuthor}} says {{comment.commentContent}}</li>
+        </ul>
+      </div>
+
+    </ul><!-- /Grumbles#Isndex -->
+  </div><!-- /View Model -->
 </body>
 </html>
